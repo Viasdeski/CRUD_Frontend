@@ -8,14 +8,17 @@ class GerenciadorPessoa {
     }
 
     cadastrarPessoa(pessoa) {
-        pessoa.id = this.geraIDPessoa();
-        this.pessoas.push(pessoa);
+        pessoa.id = this.geraIDPessoa()
+        const idExistente = this.pessoas.some(p => p.id === pessoa.id); //.some() = RETORNA TRUE CASO ENCONTRA O ELEMENTO
+
+        if(idExistente) return this.cadastrarPessoa(pessoa);
+        else this.pessoas.push(pessoa);
     }
 
     atualizarPessoa(id, dadosAtaulizacao) {
         const pessoa = this.pessoas.find(p => p.id === id);
         if(pessoa){
-            Object.assign(pessoa, dadosAtaulizacao)
+            Object.assign(pessoa, dadosAtaulizacao) //Object.assign = MESCLA OS ELEMENTOS
         }
     }
 
@@ -43,7 +46,6 @@ gerenciador.cadastrarPessoa(pessoa2)
 gerenciador.atualizarPessoa(pessoa1.id, {cidade:'Brasilia'})
 
 gerenciador.deletarPessoa(pessoa2.id)
-
 console.log(gerenciador.listarPessoas())
 
 
